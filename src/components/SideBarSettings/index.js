@@ -1,6 +1,5 @@
 import classNames from "classnames/bind";
 import styles from "./SideBarSettings.module.scss";
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { ACCOUNTURL as DELETEACCOUNTURL } from "../../constants/index";
