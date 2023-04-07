@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "./static/css/main.dee5a39b.css",
-    "main.js": "./static/js/main.d6c2f243.js",
+    "main.js": "./static/js/main.4d5fad6e.js",
     "static/js/787.cda612ba.chunk.js": "./static/js/787.cda612ba.chunk.js",
     "static/media/banner_hawk_host.png": "./static/media/banner_hawk_host.3d94bf5d2959556e9252.png",
     "static/media/banner.png": "./static/media/banner.e166ecf13460e4f9ccf4.png",
@@ -9,11 +9,11 @@
     "static/media/booking.webp": "./static/media/booking.cd218745edd5502c9ca2.webp",
     "index.html": "./index.html",
     "main.dee5a39b.css.map": "./static/css/main.dee5a39b.css.map",
-    "main.d6c2f243.js.map": "./static/js/main.d6c2f243.js.map",
+    "main.4d5fad6e.js.map": "./static/js/main.4d5fad6e.js.map",
     "787.cda612ba.chunk.js.map": "./static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dee5a39b.css",
-    "static/js/main.d6c2f243.js"
+    "static/js/main.4d5fad6e.js"
   ]
 }
