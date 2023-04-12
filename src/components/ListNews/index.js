@@ -36,13 +36,14 @@ function ListNews() {
     }
   },[]);
     return (
-      <div className={cx("list")}>
+      <>
+      {isLoading?<div className={cx("list")}>
         {newData.map((item,index) => {
           const time = moment(item.createdAt).format("DD/MM/YYYY");
           return (
             <div className={cx("item")} key={index}>
               <Link to={`/blogs/${item._id}`} className={cx("link")}>
-                <img src={BASE_URL+item.image} alt="" className={cx("img")} />
+                <img src={item.image} alt="" className={cx("img")} />
               </Link>
               <div className={cx("content")}>
                 <Link to={`/blogs/${item._id}`} className={cx("title")}>
@@ -78,7 +79,8 @@ function ListNews() {
             </div>
           );
         })}
-      </div>
+      </div>:<div className={cx('loader')}></div>}
+      </>
     );
 }
 

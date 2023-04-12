@@ -17,30 +17,24 @@ function Write() {
   const modules = { toolbar: toolbar };
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState("");
   const { setIsSuccess, setIsShow } = MessageState();
   const { user } = UserState();
 
-  // const upload = async () => {
-  //   const formData = new FormData();
-  //   formData.append("blog-image", file);
-  //   try {
-  //     const res = await axios.post(BASE_URL + "/blog/upload", formData, {
-  //       headers: {
-  //         Authorization: `Bearer ${user.token}`,
-  //       },
-  //     });
-  //     console.log("Success");
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  const convertToBase64 = (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setFile(reader.result);
+    };
+    reader.onerror = (error) => {
+      console.log(error);
+    };
+  };
 
   const createFormData = () => {
     const formData = new FormData();
-    if (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg") {
-      formData.append("image", file);
-    }
+    formData.append("image", file);
     formData.append("title", title);
     formData.append("info", body);
     return formData;
@@ -55,7 +49,7 @@ function Write() {
   const handlePublish = async () => {
     const formData = createFormData();
     try {
-      if (file.type === "image/jpeg" || file.type === "image/png") {
+      if(!file.includes("application")) {
         await axios.post(`${BASE_URL}/blogs`, formData, {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -75,57 +69,61 @@ function Write() {
 
   return (
     <>
-      {user!==null?<div className={cx("wrap-write")}>
-        <div className={cx("write-left")}>
-          <input
-            type="text"
-            className={cx("write-title")}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <div className={cx("text-editor")}>
-            <ReactQuill
-              theme="snow"
-              modules={modules}
-              formats={formats}
-              className={cx("editor")}
-              value={body}
-              onChange={setBody}
-            ></ReactQuill>
+      {user !== null ? (
+        <div className={cx("wrap-write")}>
+          <div className={cx("write-left")}>
+            <input
+              type="text"
+              className={cx("write-title")}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <div className={cx("text-editor")}>
+              <ReactQuill
+                theme="snow"
+                modules={modules}
+                formats={formats}
+                className={cx("editor")}
+                value={body}
+                onChange={setBody}
+              ></ReactQuill>
+            </div>
+          </div>
+          <div className={cx("write-right")}>
+            <h3 className={cx("title")}>Publish</h3>
+            <div className={cx("status")}>
+              <b>Status:</b> Draft
+            </div>
+            <div className={cx("visibility")}>
+              <b>Visibility:</b> Public
+            </div>
+            <label htmlFor="fileUpload" className={cx("btn-upload")}>
+              Upload image
+            </label>
+            <input
+              type="file"
+              id="fileUpload"
+              className={cx("fileUpload")}
+              onChange={convertToBase64}
+            />
+            <div className={cx("group-btn")}>
+              <button className={cx("btn-save")} onClick={handleSave}>
+                Lưu
+              </button>
+              <button className={cx("btn-update")} onClick={handlePublish}>
+                Tạo
+              </button>
+            </div>
           </div>
         </div>
-        <div className={cx("write-right")}>
-          <h3 className={cx("title")}>Publish</h3>
-          <div className={cx("status")}>
-            <b>Status:</b> Draft
-          </div>
-          <div className={cx("visibility")}>
-            <b>Visibility:</b> Public
-          </div>
-          <label htmlFor="fileUpload" className={cx("btn-upload")}>
-            Upload image
-          </label>
-          <input
-            type="file"
-            id="fileUpload"
-            className={cx("fileUpload")}
-            onChange={(e) => {
-              setFile(e.target.files[0]);
-            }}
-          />
-          <div className={cx("group-btn")}>
-            <button className={cx("btn-save")} onClick={handleSave}>
-              Lưu
-            </button>
-            <button className={cx("btn-update")} onClick={handlePublish}>
-              Tạo
-            </button>
-          </div>
+      ) : (
+        <div className={cx("wrap-message")}>
+          <h3 className={cx("title")}>Bạn phải đăng nhập để tạo blog</h3>
+          <Link to="/login" className={cx("link")}>
+            Đăng nhập tại đây
+          </Link>
         </div>
-      </div>:<div className={cx('wrap-message')}>
-            <h3 className={cx('title')}>Bạn phải đăng nhập để tạo blog</h3>
-            <Link to="/login" className={cx('link')}>Đăng nhập tại đây</Link>
-        </div>}
+      )}
     </>
   );
 }

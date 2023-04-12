@@ -33,6 +33,7 @@ function PannelBlogs() {
                     }
                 });
                 setData(res.data);
+                setIsLoading(true);
             } catch(e) {
                 console.log(e);
             }

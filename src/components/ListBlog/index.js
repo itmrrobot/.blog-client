@@ -42,7 +42,8 @@ function ListBlog() {
   }, []);
 
   return (
-    <div className={cx("list-blog")}>
+    <>
+    {isLoading?<div className={cx("list-blog")}>
       {blogs.map((item, index) => {
         const time = moment(item.createdAt).format("DD/MM/YYYY");
         return (
@@ -102,7 +103,10 @@ function ListBlog() {
         setMinPageNumberLimit={setMinPageNumberLimit}
         pageNumberLimit={pageNumberLimit}
       />
-    </div>
+    </div>:
+      <div className={cx("loader")}></div>
+    }
+    </>
   );
 }
 
