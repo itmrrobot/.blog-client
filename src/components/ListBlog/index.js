@@ -49,7 +49,7 @@ function ListBlog() {
         return (
           <div className={cx("item")} key={index}>
             <Link to={`/blogs/${item._id}`}>
-              <img src={BASE_URL + item.image} alt="" className={cx("img")} />
+              <img src={item.image} alt="" className={cx("img")} />
             </Link>
             <div className={cx("wrap-post")}>
               <div className={cx("user")}>
