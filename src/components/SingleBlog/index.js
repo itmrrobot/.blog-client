@@ -55,7 +55,7 @@ function SingleBlog() {
             <span className={cx("date")}>{time}</span>
           </div>
         </div>
-        <img src={BASE_URL + blog.image} alt="" className={cx("img")} />
+        <img src={blog.image} alt="" className={cx("img")} />
         <div className={cx("para")} dangerouslySetInnerHTML={{ __html: blog.info }} />
         <MessageForm/>
       </div>
